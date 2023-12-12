@@ -1,0 +1,882 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event sheet 2</name>
+    <events>
+        <variable constant="0" name="LastClickX2" sid="804485703809417" static="0" type="number">0</variable>
+        <variable constant="0" name="LastClickY2" sid="318006233153820" static="0" type="number">0</variable>
+        <event-group description="" sid="236250096207859" title="Startup and initialisation2">
+            <sub-events>
+                <comment>On startup, tell the friendly turrets to aim for enemy bases, and enemy turrets to aim for friendly bases.</comment>
+                <event-block sid="152621886907280">
+                    <conditions>
+                        <condition id="-2" name="On start of layout" sid="348175147131731" type="System" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Turret" id="1" name="Add object to target" sid="194145369833350" type="FriendlyTurrets">
+                            <param id="0" name="Target">EnemyBases</param>
+                        </action>
+                        <action behavior="Turret" id="1" name="Add object to target" sid="584929207405525" type="EnemyTurrets">
+                            <param id="0" name="Target">FriendlyBases</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>For the enemies marked as patrolling, send them off on a patrol after 2-25 seconds.</comment>
+                        <event-block sid="590405293705362">
+                            <conditions>
+                                <condition id="-8" name="Is boolean instance variable set" sid="995057797212875" type="EnemyBases">
+                                    <param id="0" name="Instance variable">IsPatrolling</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Timer" id="0" name="Start timer" sid="507060224587616" type="EnemyBases">
+                                    <param id="0" name="Duration">random(2, 25)</param>
+                                    <param id="1" name="Type">0</param>
+                                    <param id="2" name="Tag">&quot;patrol&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>Whenever each unit&apos;s base is created (which includes every instance initially on the layout at startup), position its turret over the base and pin it so it follows along with the base. We also need both the turret and the base to store each other&apos;s UID, so we can find the associated object later on.</comment>
+                <event-block sid="943085072691792">
+                    <conditions>
+                        <condition id="-18" name="On created" sid="444436216839705" type="Tank1Base" />
+                    </conditions>
+                    <actions>
+                        <action id="-4" name="Set position to another object" sid="116372934265855" type="Tank1Turret">
+                            <param id="0" name="Object">Tank1Base</param>
+                            <param id="1" name="Image point (optional)">0</param>
+                        </action>
+                        <action behavior="Pin" id="0" name="Pin to object" sid="515071297156274" type="Tank1Turret">
+                            <param id="0" name="Pin to">Tank1Base</param>
+                            <param id="1" name="Mode">0</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="234343590345344" type="Tank1Base">
+                            <param id="0" name="Instance variable">TurretUID</param>
+                            <param id="1" name="Value">Tank1Turret.UID</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="221243800271961" type="Tank1Turret">
+                            <param id="0" name="Instance variable">BaseUID</param>
+                            <param id="1" name="Value">Tank1Base.UID</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="912367493558195">
+                    <conditions>
+                        <condition id="-18" name="On created" sid="977239890415081" type="Enemy1Base" />
+                    </conditions>
+                    <actions>
+                        <action id="-4" name="Set position to another object" sid="347958716168074" type="Enemy1Turret">
+                            <param id="0" name="Object">Enemy1Base</param>
+                            <param id="1" name="Image point (optional)">0</param>
+                        </action>
+                        <action behavior="Pin" id="0" name="Pin to object" sid="490185643649473" type="Enemy1Turret">
+                            <param id="0" name="Pin to">Enemy1Base</param>
+                            <param id="1" name="Mode">0</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="710480039482908" type="Enemy1Base">
+                            <param id="0" name="Instance variable">TurretUID</param>
+                            <param id="1" name="Value">Enemy1Turret.UID</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="620015156162258" type="Enemy1Turret">
+                            <param id="0" name="Instance variable">BaseUID</param>
+                            <param id="1" name="Value">Enemy1Base.UID</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="783148329209894">
+                    <conditions>
+                        <condition id="-18" name="On created" sid="452793584644240" type="Enemy1Base2" />
+                    </conditions>
+                    <actions>
+                        <action id="-4" name="Set position to another object" sid="596433656987067" type="Enemy1Turret2">
+                            <param id="0" name="Object">Enemy1Base2</param>
+                            <param id="1" name="Image point (optional)">0</param>
+                        </action>
+                        <action behavior="Pin" id="0" name="Pin to object" sid="365403842847739" type="Enemy1Turret2">
+                            <param id="0" name="Pin to">Enemy1Base2</param>
+                            <param id="1" name="Mode">0</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="667566670705422" type="Enemy1Base2">
+                            <param id="0" name="Instance variable">TurretUID</param>
+                            <param id="1" name="Value">Enemy1Turret2.UID</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="973894183702831" type="Enemy1Turret2">
+                            <param id="0" name="Instance variable">BaseUID</param>
+                            <param id="1" name="Value">Enemy1Base2.UID</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Map position</comment>
+                <event-block sid="589578993880635">
+                    <conditions>
+                        <condition id="-18" name="On created" sid="543361813782704" type="Map12" />
+                    </conditions>
+                    <actions>
+                        <action id="-1" name="Set X" sid="808358633437849" type="Map12">
+                            <param id="0" name="X">700</param>
+                        </action>
+                        <action id="-2" name="Set Y" sid="569191976748022" type="Map12">
+                            <param id="0" name="Y">80</param>
+                        </action>
+                        <action id="-2" name="Set Y" sid="305391133541559" type="MapFrame">
+                            <param id="0" name="Y">Map12.Y</param>
+                        </action>
+                        <action id="-1" name="Set X" sid="627689447141383" type="MapFrame">
+                            <param id="0" name="X">Map12.X</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="Left clicking to move units to a destination" sid="912691401275761" title="Player unit control2">
+            <sub-events>
+                <comment>Store the last click position so we can tell the difference between a selection box drag and single click when the left mouse button is released.</comment>
+                <event-block sid="670151005756342">
+                    <conditions>
+                        <condition id="0" name="On click" sid="917123185101573" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="157785322648000" type="System">
+                            <param id="0" name="Variable">LastClickX</param>
+                            <param id="1" name="Value">Mouse.X(&quot;Bases&quot;)</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="183879279974439" type="System">
+                            <param id="0" name="Variable">LastClickY</param>
+                            <param id="1" name="Value">Mouse.Y(&quot;Bases&quot;)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>If the user releases the mouse, tell them to find a path to that location then move there. The cursor has to move less than 16 pixels for it to count as a click and not a selection box drag.</comment>
+                <event-block sid="796241291479642">
+                    <conditions>
+                        <condition id="3" name="On button released" sid="271719253778771" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                        </condition>
+                        <condition id="-8" name="Compare two values" sid="793115622134623" type="System">
+                            <param id="0" name="First value">distance(Mouse.X(&quot;Bases&quot;), Mouse.Y(&quot;Bases&quot;), LastClickX, LastClickY)</param>
+                            <param id="1" name="Comparison">2</param>
+                            <param id="2" name="Second value">16</param>
+                        </condition>
+                        <condition id="7" inverted="1" name="Cursor is over object" sid="930736340789358" type="Mouse">
+                            <param id="0" name="Object">FriendlyBases</param>
+                        </condition>
+                        <condition id="-8" name="Is boolean instance variable set" sid="655344770401184" type="FriendlyBases">
+                            <param id="0" name="Instance variable">IsSelected</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <comment>We want to keep all our units in formation, instead of all piling on to the same point. So first we find the average of all the selected unit&apos;s positions. This gives us the mid-point of the selection. First we need to sum all the X and Y co-ordinates, then divide by the count to get the average.</comment>
+                        <variable constant="0" name="SelectionMidpointX" sid="809540031889088" static="0" type="number">0</variable>
+                        <variable constant="0" name="SelectionMidpointY" sid="735528170210373" static="0" type="number">0</variable>
+                        <event-block sid="112234200686336">
+                            <conditions>
+                                <condition id="-11" name="For Each" sid="310411355098916" type="System">
+                                    <param id="0" name="Object">FriendlyBases</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Add to" sid="611055035227233" type="System">
+                                    <param id="0" name="Variable">SelectionMidpointX</param>
+                                    <param id="1" name="Value">FriendlyBases.X</param>
+                                </action>
+                                <action id="-10" name="Add to" sid="470665931031032" type="System">
+                                    <param id="0" name="Variable">SelectionMidpointY</param>
+                                    <param id="1" name="Value">FriendlyBases.Y</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>Now we&apos;ve summed, we divide by the count to get the mid-point of all the selected units. Then we tell the unit to move to the mouse, but keeping its relative position. This preserves the formation.</comment>
+                        <event-block sid="496096588985650">
+                            <conditions />
+                            <actions>
+                                <action id="-9" name="Set value" sid="604714877187066" type="System">
+                                    <param id="0" name="Variable">SelectionMidpointX</param>
+                                    <param id="1" name="Value">SelectionMidpointX / FriendlyBases.PickedCount</param>
+                                </action>
+                                <action id="-9" name="Set value" sid="668758466275872" type="System">
+                                    <param id="0" name="Variable">SelectionMidpointY</param>
+                                    <param id="1" name="Value">SelectionMidpointY / FriendlyBases.PickedCount</param>
+                                </action>
+                                <action behavior="Pathfinding" id="0" name="Find path" sid="385976654723650" type="FriendlyBases">
+                                    <param id="0" name="X">Mouse.X(&quot;Bases&quot;) + (Self.X - SelectionMidpointX)</param>
+                                    <param id="1" name="Y">Mouse.Y(&quot;Bases&quot;) + (Self.Y - SelectionMidpointY)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="375962104859260">
+                    <conditions>
+                        <condition behavior="Pathfinding" id="0" name="On path found" sid="405799373298236" type="FriendlyBases" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="1" name="Move along path" sid="937529785116380" type="FriendlyBases" />
+                    </actions>
+                </event-block>
+                <comment>If a turret has no target, rotate it back to face in the direction of the unit. Note Construct 2 doesn&apos;t normally know how to match up the FriendlyTurrets family to the associated FriendlyBases family. So to make sure this works per-unit, we loop each FriendlyTurret and specifically pick its associated base.</comment>
+                <event-block sid="306001018849340">
+                    <conditions>
+                        <condition behavior="Turret" id="0" inverted="1" name="Has target" sid="136728144758597" type="FriendlyTurrets" />
+                        <condition id="-11" name="For Each" sid="641568599147084" type="System">
+                            <param id="0" name="Object">FriendlyTurrets</param>
+                        </condition>
+                        <condition id="-14" name="Pick by unique ID" sid="948204293367526" type="FriendlyBases">
+                            <param id="0" name="Unique ID">FriendlyTurrets.BaseUID</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-20" name="Rotate toward angle" sid="973221840910220" type="FriendlyTurrets">
+                            <param id="0" name="Degrees">FriendlyTurrets.Turret.RotateSpeed * dt</param>
+                            <param id="1" name="Angle">FriendlyBases.Angle</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Normally lines of units snake along overlapping each other, which looks unrealistic. This is extremely difficult to get right, but this event implements an &quot;anti traffic jamming&quot; hack. If a unit is moving and there is another unit moving 40 pixels in front of it, the unit will slow down and also speed up the unit in front. This basically makes units wait for other units in front of them, so queues form. It doesn&apos;t stop units still overlapping or driving through each other, but it does look a little bit more realistic.&#x0D;&#x0A;&#x0D;&#x0A;Note in this event to tell apart the instances of the same object type, we take advantage of the fact Construct 2 picks instances for families separately to the object type. So in this case, FriendlyBases is remembering which instances match separately to Tank1Base, even though they refer to the same instances.</comment>
+                <event-block sid="619800668753234">
+                    <conditions>
+                        <condition behavior="Pathfinding" id="4" name="Is moving along path" sid="315152359212341" type="FriendlyBases" />
+                        <condition behavior="Pathfinding" id="6" name="Compare speed" sid="408488394017200" type="FriendlyBases">
+                            <param id="0" name="Comparison">4</param>
+                            <param id="1" name="Speed">Self.Pathfinding.MaxSpeed / 4</param>
+                        </condition>
+                        <condition id="-11" name="For Each" sid="963213165974160" type="System">
+                            <param id="0" name="Object">FriendlyBases</param>
+                        </condition>
+                        <condition id="-36" name="Pick overlapping point" sid="122212109337515" type="System">
+                            <param id="0" name="Object">Tank1Base</param>
+                            <param id="1" name="X">FriendlyBases.X + cos(FriendlyBases.Angle) * 40</param>
+                            <param id="2" name="Y">FriendlyBases.Y + sin(FriendlyBases.Angle) * 40</param>
+                        </condition>
+                        <condition behavior="Pathfinding" id="4" name="Is moving along path" sid="805489444086083" type="Tank1Base" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="14" name="Set speed" sid="919330547907554" type="FriendlyBases">
+                            <param id="0" name="Speed">Self.Pathfinding.MaxSpeed / 4</param>
+                        </action>
+                        <action behavior="Pathfinding" id="14" name="Set speed" sid="425926248122855" type="Tank1Base">
+                            <param id="0" name="Speed">Self.Pathfinding.Speed + Self.Pathfinding.Acceleration * dt * 2</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="Handles both left-clicking to select individual units, and click-and-drag selection boxes" sid="804454625218468" title="Player selecting units2">
+            <sub-events>
+                <comment>Left click to add the unit to selection, and right click to unselect all.</comment>
+                <event-block sid="781558080946025">
+                    <conditions>
+                        <condition id="6" name="On object clicked" sid="364211723369475" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">FriendlyBases</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-13" name="Set boolean" sid="272328013733355" type="FriendlyBases">
+                            <param id="0" name="Instance variable">IsSelected</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="360341212533825">
+                    <conditions>
+                        <condition id="0" name="On click" sid="493880911303050" type="Mouse">
+                            <param id="0" name="Mouse button">2</param>
+                            <param id="1" name="Click type">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-13" name="Set boolean" sid="957200369651941" type="FriendlyBases">
+                            <param id="0" name="Instance variable">IsSelected</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>If holding the left mouse button down and the cursor has moved more than 16 pixels, show a selection box.</comment>
+                <event-block sid="339542102339761">
+                    <conditions>
+                        <condition id="2" name="Mouse button is down" sid="723905018723055" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                        </condition>
+                        <condition id="-8" name="Compare two values" sid="246164391998392" type="System">
+                            <param id="0" name="First value">distance(Mouse.X(&quot;Bases&quot;), Mouse.Y(&quot;Bases&quot;), LastClickX, LastClickY)</param>
+                            <param id="1" name="Comparison">5</param>
+                            <param id="2" name="Second value">16</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="302093245645996" type="SelectionBox">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-3" name="Set position" sid="428253955672436" type="SelectionBox">
+                            <param id="0" name="X">min(Mouse.X(&quot;Bases&quot;), LastClickX)</param>
+                            <param id="1" name="Y">min(Mouse.Y(&quot;Bases&quot;), LastClickY)</param>
+                        </action>
+                        <action id="-7" name="Set size" sid="108015264786438" type="SelectionBox">
+                            <param id="0" name="Width">abs(Mouse.X(&quot;Bases&quot;) - LastClickX)</param>
+                            <param id="1" name="Height">abs(Mouse.Y(&quot;Bases&quot;) - LastClickY)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="340767957677979">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="639934731913748" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="234069872242663" type="SelectionBox">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>When releasing the left mouse button and the cursor has moved more than 16 pixels, make any units inside the selection box selected.</comment>
+                <event-block sid="256434845462838">
+                    <conditions>
+                        <condition id="3" name="On button released" sid="713781581752697" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                        </condition>
+                        <condition id="-8" name="Compare two values" sid="519883890986327" type="System">
+                            <param id="0" name="First value">distance(Mouse.X(&quot;Bases&quot;), Mouse.Y(&quot;Bases&quot;), LastClickX, LastClickY)</param>
+                            <param id="1" name="Comparison">5</param>
+                            <param id="2" name="Second value">16</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-13" name="Set boolean" sid="265973512126070" type="FriendlyBases">
+                            <param id="0" name="Instance variable">IsSelected</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="315004670531552">
+                            <conditions>
+                                <condition id="-1" name="Compare X" sid="180156767439907" type="FriendlyBases">
+                                    <param id="0" name="Comparison">5</param>
+                                    <param id="1" name="X co-ordinate">SelectionBox.X</param>
+                                </condition>
+                                <condition id="-1" name="Compare X" sid="339873005556756" type="FriendlyBases">
+                                    <param id="0" name="Comparison">3</param>
+                                    <param id="1" name="X co-ordinate">SelectionBox.X + SelectionBox.Width</param>
+                                </condition>
+                                <condition id="-2" name="Compare Y" sid="602455850997729" type="FriendlyBases">
+                                    <param id="0" name="Comparison">5</param>
+                                    <param id="1" name="Y co-ordinate">SelectionBox.Y</param>
+                                </condition>
+                                <condition id="-2" name="Compare Y" sid="587677547264193" type="FriendlyBases">
+                                    <param id="0" name="Comparison">3</param>
+                                    <param id="1" name="Y co-ordinate">SelectionBox.Y + SelectionBox.Height</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-13" name="Set boolean" sid="308176261588215" type="FriendlyBases">
+                                    <param id="0" name="Instance variable">IsSelected</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-group description="Create a unit selection box 9-patch for every selected player unit, and position it over the unit." sid="919905141591060" title="Unit selection boxes2">
+                    <sub-events>
+                        <comment>We need to create a UnitSelectionBox for every selected unit. First count how many friendly units are selected using the PickedCount expression.</comment>
+                        <variable constant="0" name="NumberSelected" sid="389711606733194" static="0" type="number">0</variable>
+                        <event-block sid="503622035183702">
+                            <conditions>
+                                <condition id="-8" name="Is boolean instance variable set" sid="663977476278219" type="FriendlyBases">
+                                    <param id="0" name="Instance variable">IsSelected</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="493738027376915" type="System">
+                                    <param id="0" name="Variable">NumberSelected</param>
+                                    <param id="1" name="Value">FriendlyBases.PickedCount</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="781974670337033">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="246488828088330" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="720945638313465" type="System">
+                                    <param id="0" name="Variable">NumberSelected</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>If there are more selected units than UnitSelectionBox objects, create more UnitSelectionBox objects to make up the difference.</comment>
+                        <event-block sid="566606692534327">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="962793571511749" type="System">
+                                    <param id="0" name="Variable">NumberSelected</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">UnitSelectionBox.Count</param>
+                                </condition>
+                                <condition id="-12" name="Repeat" sid="885864673937459" type="System">
+                                    <param id="0" name="Count">NumberSelected - UnitSelectionBox.Count</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="763286509460274" type="System">
+                                    <param id="0" name="Object to create">UnitSelectionBox</param>
+                                    <param id="1" name="Layer">&quot;Turrets&quot;</param>
+                                    <param id="2" name="X">-1000</param>
+                                    <param id="3" name="Y">-1000</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>If there are fewer selected units than UnitSelectionBox objects, destroy UnitSelectionBox objects to make up the difference.</comment>
+                        <event-block sid="258598038628978">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="491429948393824" type="System">
+                                    <param id="0" name="Variable">NumberSelected</param>
+                                    <param id="1" name="Comparison">2</param>
+                                    <param id="2" name="Value">UnitSelectionBox.Count</param>
+                                </condition>
+                                <condition id="-12" name="Repeat" sid="580069097119648" type="System">
+                                    <param id="0" name="Count">UnitSelectionBox.Count - NumberSelected</param>
+                                </condition>
+                                <condition id="-13" name="Pick nth instance" sid="438370315274630" type="System">
+                                    <param id="0" name="Object">UnitSelectionBox</param>
+                                    <param id="1" name="Instance">loopindex</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="314552941094869" type="UnitSelectionBox" />
+                            </actions>
+                        </event-block>
+                        <comment>Due to the above two events, we now know there are an equal number of selected Friendly units, and UnitSelectionBox objects. So now we loop for each selected friendly unit, and position a UnitSelectionBox over it.</comment>
+                        <event-block sid="417616460474450">
+                            <conditions>
+                                <condition id="-8" name="Is boolean instance variable set" sid="849805582306442" type="FriendlyBases">
+                                    <param id="0" name="Instance variable">IsSelected</param>
+                                </condition>
+                                <condition id="-11" name="For Each" sid="265358738347768" type="System">
+                                    <param id="0" name="Object">FriendlyBases</param>
+                                </condition>
+                                <condition id="-13" name="Pick nth instance" sid="158638033963614" type="System">
+                                    <param id="0" name="Object">UnitSelectionBox</param>
+                                    <param id="1" name="Instance">loopindex</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Set position" sid="920047223300716" type="UnitSelectionBox">
+                                    <param id="0" name="X">FriendlyBases.BBoxLeft - 2</param>
+                                    <param id="1" name="Y">FriendlyBases.BBoxTop - 2</param>
+                                </action>
+                                <action id="-7" name="Set size" sid="307067253362605" type="UnitSelectionBox">
+                                    <param id="0" name="Width">FriendlyBases.BBoxRight - FriendlyBases.BBoxLeft + 4</param>
+                                    <param id="1" name="Height">FriendlyBases.BBoxBottom - FriendlyBases.BBoxTop + 4</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description="Moving the mouse to the edge of the window to scroll." sid="463799841487337" title="Scrolling2">
+            <sub-events>
+                <comment>When the mouse is moved to the edge of the screen, scroll in that direction.</comment>
+                <variable comment="In pixels per second" constant="1" name="ScrollSpeed" sid="736891016733465" static="0" type="number">600</variable>
+                <event-block sid="396496197337840">
+                    <conditions>
+                        <condition id="-8" name="Compare two values" sid="485232149148457" type="System">
+                            <param id="0" name="First value">Mouse.AbsoluteX</param>
+                            <param id="1" name="Comparison">2</param>
+                            <param id="2" name="Second value">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-5" name="Scroll to X" sid="732032194086872" type="System">
+                            <param id="0" name="X">scrollx - SCROLLSPEED * dt</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="628769251905759">
+                    <conditions>
+                        <condition id="-8" name="Compare two values" sid="157962364598350" type="System">
+                            <param id="0" name="First value">Mouse.AbsoluteX</param>
+                            <param id="1" name="Comparison">4</param>
+                            <param id="2" name="Second value">WindowWidth - 5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-5" name="Scroll to X" sid="459845778859076" type="System">
+                            <param id="0" name="X">scrollx + SCROLLSPEED * dt</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="268973262947938">
+                    <conditions>
+                        <condition id="-8" name="Compare two values" sid="571529579663591" type="System">
+                            <param id="0" name="First value">Mouse.AbsoluteY</param>
+                            <param id="1" name="Comparison">2</param>
+                            <param id="2" name="Second value">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-6" name="Scroll to Y" sid="338193062344294" type="System">
+                            <param id="0" name="Y">scrolly - SCROLLSPEED * dt</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="797960282770491">
+                    <conditions>
+                        <condition id="-8" name="Compare two values" sid="139644705756054" type="System">
+                            <param id="0" name="First value">Mouse.AbsoluteY</param>
+                            <param id="1" name="Comparison">4</param>
+                            <param id="2" name="Second value">WindowHeight - 5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-6" name="Scroll to Y" sid="114792950158210" type="System">
+                            <param id="0" name="Y">scrolly + SCROLLSPEED * dt</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="921328301563439">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="372691119097315" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Set position" sid="642423458960640" type="Sprite15">
+                            <param id="0" name="X">Map11.X +Tank1Base.X *150/1280 - 75</param>
+                            <param id="1" name="Y">Map11.Y + Tank1Base.Y*120/1024 - 60</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="Units shooting and doing damage" sid="918652675135057" title="Combat2">
+            <sub-events>
+                <comment>When the tank turret shoots, spawn its projectile, some particles for eye candy, and randomly adjust the projectile angle slightly to simulate inaccuracy.</comment>
+                <event-block sid="174083173934381">
+                    <conditions>
+                        <condition behavior="Turret" id="1" name="On shoot" sid="802824834302203" type="Tank1Turret" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="638336484884805" type="Tank1Turret">
+                            <param id="0" name="Object">TurretFireParticles</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="0" name="Spawn another object" sid="671965147112799" type="Tank1Turret">
+                            <param id="0" name="Object">Tank1Projectile</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-18" name="Rotate clockwise" sid="743149878887015" type="Tank1Projectile">
+                            <param id="0" name="Degrees">random(-2, 2)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>To stop bullets flying across the entire battlefield, fade them out after they&apos;ve left the turret&apos;s range. The Fade behavior is also set to destroy the object after the fade out.</comment>
+                <event-block sid="770819539318564">
+                    <conditions>
+                        <condition behavior="Bullet" id="1" name="Compare distance travelled" sid="682914018160128" type="FriendlyProjectiles">
+                            <param id="0" name="Comparison">4</param>
+                            <param id="1" name="Distance">Self.Range</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Fade" id="1" name="Start fade" sid="677318680807629" type="FriendlyProjectiles" />
+                    </actions>
+                </event-block>
+                <comment>When the friendly projectile hits an enemy, create an explosion and deal some damage to the enemy.</comment>
+                <event-block sid="602446651270566">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="161426269044074" type="FriendlyProjectiles">
+                            <param id="0" name="Object">EnemyBases</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="625837493965694" type="FriendlyProjectiles">
+                            <param id="0" name="Object">SmallExplosion</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">0</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="601134377113160" type="FriendlyProjectiles" />
+                        <action id="-12" name="Subtract from" sid="609193293791908" type="EnemyBases">
+                            <param id="0" name="Instance variable">Health</param>
+                            <param id="1" name="Value">FriendlyProjectiles.Damage</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Destroy any enemies that have run out of health with an explosion.</comment>
+                <event-block sid="203136744084660">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="489019266367130" type="EnemyBases">
+                            <param id="0" name="Instance variable">Health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="991620228712911" type="System">
+                            <param id="0" name="Object to create">BigExplosion</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="X">EnemyBases.X</param>
+                            <param id="3" name="Y">EnemyBases.Y</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="211611086577713" type="EnemyBases" />
+                    </actions>
+                </event-block>
+                <comment>These events are the same as above, but simply applying the other way round (for enemies shooting the player&apos;s units).</comment>
+                <event-block sid="762764203346980">
+                    <conditions>
+                        <condition behavior="Turret" id="1" name="On shoot" sid="260498014193671" type="Enemy1Turret" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="830107994074812" type="Enemy1Turret">
+                            <param id="0" name="Object">TurretFireParticles</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="0" name="Spawn another object" sid="590958586222048" type="Enemy1Turret">
+                            <param id="0" name="Object">Enemy1Projectile</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-18" name="Rotate clockwise" sid="648723454764471" type="Enemy1Projectile">
+                            <param id="0" name="Degrees">random(-2, 2)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="543681799426041">
+                    <conditions>
+                        <condition behavior="Turret" id="1" name="On shoot" sid="642384975377584" type="Enemy1Turret2" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="575432596882610" type="Enemy1Turret2">
+                            <param id="0" name="Object">TurretFireParticles</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="0" name="Spawn another object" sid="683830286452100" type="Enemy1Turret2">
+                            <param id="0" name="Object">Enemy1Projectile</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-18" name="Rotate clockwise" sid="845858277956345" type="Enemy1Projectile">
+                            <param id="0" name="Degrees">random(-2, 2)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="844281045933493">
+                    <conditions>
+                        <condition behavior="Bullet" id="1" name="Compare distance travelled" sid="191349013666267" type="EnemyProjectiles">
+                            <param id="0" name="Comparison">4</param>
+                            <param id="1" name="Distance">Self.Range</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Fade" id="1" name="Start fade" sid="104230140792452" type="EnemyProjectiles" />
+                    </actions>
+                </event-block>
+                <event-block sid="595553936547586">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="633221222856868" type="EnemyProjectiles">
+                            <param id="0" name="Object">FriendlyBases</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="148024149292074" type="EnemyProjectiles">
+                            <param id="0" name="Object">SmallExplosion</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="Image point">0</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="518190327648374" type="EnemyProjectiles" />
+                        <action id="-12" name="Subtract from" sid="634967423827706" type="FriendlyBases">
+                            <param id="0" name="Instance variable">Health</param>
+                            <param id="1" name="Value">EnemyProjectiles.Damage</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="406610009829286">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="809959256504431" type="FriendlyBases">
+                            <param id="0" name="Instance variable">Health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="614026076077013" type="System">
+                            <param id="0" name="Object to create">BigExplosion</param>
+                            <param id="1" name="Layer">&quot;Projectiles&quot;</param>
+                            <param id="2" name="X">FriendlyBases.X</param>
+                            <param id="3" name="Y">FriendlyBases.Y</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="424909501897485" type="FriendlyBases" />
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="411799331000919" title="Enemies2">
+            <sub-events>
+                <comment>To simulate a really basic kind of fake AI, make the enemies pathfind to a random position in the layout every 2 to 25 seconds after arriving at their previous position.</comment>
+                <event-block sid="791222899458626">
+                    <conditions>
+                        <condition behavior="Timer" id="0" name="On timer" sid="368322160019630" type="EnemyBases">
+                            <param id="0" name="Tag">&quot;patrol&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="0" name="Find path" sid="585726587510382" type="EnemyBases">
+                            <param id="0" name="X">random(LayoutWidth)</param>
+                            <param id="1" name="Y">random(LayoutHeight)</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="846672783714550">
+                    <conditions>
+                        <condition behavior="Pathfinding" id="0" name="On path found" sid="968213277520929" type="EnemyBases" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="1" name="Move along path" sid="967932376655514" type="EnemyBases" />
+                    </actions>
+                </event-block>
+                <event-block sid="486587076090361">
+                    <conditions>
+                        <condition behavior="Pathfinding" id="5" name="On arrived" sid="444646954184908" type="EnemyBases" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Timer" id="0" name="Start timer" sid="200011791397466" type="EnemyBases">
+                            <param id="0" name="Duration">random(2,25)</param>
+                            <param id="1" name="Type">0</param>
+                            <param id="2" name="Tag">&quot;patrol&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>As with the player units, rotate any enemy turrets which don&apos;t have targets back to the direction of their base.</comment>
+                <event-block sid="609609739292272">
+                    <conditions>
+                        <condition behavior="Turret" id="0" inverted="1" name="Has target" sid="455550998616179" type="EnemyTurrets" />
+                        <condition id="-11" name="For Each" sid="431397909366703" type="System">
+                            <param id="0" name="Object">EnemyTurrets</param>
+                        </condition>
+                        <condition id="-14" name="Pick by unique ID" sid="690580896769790" type="EnemyBases">
+                            <param id="0" name="Unique ID">EnemyTurrets.BaseUID</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-20" name="Rotate toward angle" sid="250674607593558" type="EnemyTurrets">
+                            <param id="0" name="Degrees">EnemyTurrets.Turret.RotateSpeed * dt</param>
+                            <param id="1" name="Angle">EnemyBases.Angle</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="639376530096265" title="Misc2">
+            <sub-events>
+                <comment>Destroy explosions after their animations have finished, so they don&apos;t pile up and keep using more memory.</comment>
+                <event-block sid="528739068251867">
+                    <conditions>
+                        <condition id="5" name="On any finished" sid="202385280307706" type="BigExplosion" />
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="805740858358190" type="BigExplosion" />
+                    </actions>
+                </event-block>
+                <event-block sid="438964397067948">
+                    <conditions>
+                        <condition id="5" name="On any finished" sid="455090766370860" type="SmallExplosion" />
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="217550606208046" type="SmallExplosion" />
+                    </actions>
+                </event-block>
+                <comment>Use the mouse wheel to do a basic zoom effect.</comment>
+                <event-block sid="375575529408027">
+                    <conditions>
+                        <condition id="8" name="On mouse wheel" sid="228087066545602" type="Mouse">
+                            <param id="0" name="Direction">0</param>
+                        </condition>
+                        <condition id="-8" name="Compare two values" sid="872146514633730" type="System">
+                            <param id="0" name="First value">LayoutScale</param>
+                            <param id="1" name="Comparison">4</param>
+                            <param id="2" name="Second value">0.75</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-20" name="Set layout scale" sid="599717338557073" type="System">
+                            <param id="0" name="Scale">LayoutScale - 0.1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="689866137523023">
+                    <conditions>
+                        <condition id="8" name="On mouse wheel" sid="568219459006161" type="Mouse">
+                            <param id="0" name="Direction">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-20" name="Set layout scale" sid="162578646006976" type="System">
+                            <param id="0" name="Scale">LayoutScale + 0.1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block sid="673588369663224">
+            <conditions>
+                <condition id="-8" name="Compare two values" sid="347191601910759" type="System">
+                    <param id="0" name="First value">ProgressBarTankbase.Count</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Second value">Tank1Base.Count</param>
+                </condition>
+                <condition id="-12" name="Repeat" sid="964368252694121" type="System">
+                    <param id="0" name="Count">Tank1Base.Count</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-3" name="Create object" sid="546742405411052" type="System">
+                    <param id="0" name="Object to create">ProgressBarTankbase</param>
+                    <param id="1" name="Layer">&quot;Bases&quot;</param>
+                    <param id="2" name="X">0</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+                <action id="-3" name="Create object" sid="303993233906176" type="System">
+                    <param id="0" name="Object to create">Sprite15</param>
+                    <param id="1" name="Layer">&quot;UI&quot;</param>
+                    <param id="2" name="X">0</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="797566179399338">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="597991938985269" type="System" />
+            </conditions>
+            <actions>
+                <action id="-3" name="Set position" sid="610214676288020" type="ProgressBarTankbase">
+                    <param id="0" name="X">Tank1Base.X - 30</param>
+                    <param id="1" name="Y">Tank1Base.Y-35</param>
+                </action>
+                <action id="3" name="Set progress" sid="748351149050537" type="ProgressBarTankbase">
+                    <param id="0" name="Value">Tank1Base.Health</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="775137663313669">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="778127659391582" type="System" />
+            </conditions>
+            <actions>
+                <action id="-3" name="Set position" sid="886705961283061" type="ProgressBarEnemy">
+                    <param id="0" name="X">Enemy1Base.X - 30</param>
+                    <param id="1" name="Y">Enemy1Base.Y-35</param>
+                </action>
+                <action id="3" name="Set progress" sid="676783730342437" type="ProgressBarEnemy">
+                    <param id="0" name="Value">Enemy1Base.Health</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
